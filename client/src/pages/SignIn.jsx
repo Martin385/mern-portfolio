@@ -1,11 +1,14 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signInSuccess, signInStart, signInFailure } from "../redux/user/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 export default function SignUp() {
   
   const [formData, setFormData] = useState({});
-  const [errorMessag, setErrorMessage] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const {loading, error: errorMessage} = useSelector(state => state.user)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -14,12 +17,11 @@ export default function SignUp() {
     e.preventDefault();
     
     if( !formData.email || !formData.password) {
-      return setErrorMessage('Por favor, llenar todos los campos')
+      return dispatch(signInFailure('Llena todos los campos'))
 
     }
     try {
-      setLoading(true)
-      setErrorMessage(null)
+      dispatch(signInStart())
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -27,16 +29,16 @@ export default function SignUp() {
       });
       const data = await res.json()
       if (data.success === false) {
-        return setErrorMessage(data.message)
+
+       dispatch(signInFailure(data.message))
       }
-      setLoading(false)
       if(res.ok) {
+        dispatch(signInSuccess(data))
         navigate('/')
       }
     } catch (error) {
-      setErrorMessage(error.message)
-      setLoading(false)
-
+      
+      dispatch(signInFailure(error.message))
     }
   };
   return (
@@ -95,10 +97,10 @@ export default function SignUp() {
           </div>
 
           {
-            errorMessag && (
-              errorMessag && (
+            errorMessage && (
+              errorMessage && (
                 <Alert className="mt-5" color='failure'>
-                  {errorMessag}
+                  {errorMessage}
                 </Alert>
               )
             )
