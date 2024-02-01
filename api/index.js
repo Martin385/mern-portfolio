@@ -5,7 +5,7 @@ import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import bodyParser from "body-parser";
 import { stat } from "fs";
-
+import cors from "cors";
 dotenv.config();
 
 mongoose
@@ -19,6 +19,7 @@ mongoose
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.listen(3000, () => {
   console.log("server is running on port 3000!");
