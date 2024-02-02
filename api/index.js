@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.route.js";
 import bodyParser from "body-parser";
 import { stat } from "fs";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 mongoose
@@ -17,6 +18,8 @@ mongoose
     console.log(err);
   });
 const app = express();
+
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(cors());

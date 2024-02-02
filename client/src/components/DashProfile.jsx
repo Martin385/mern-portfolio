@@ -9,8 +9,8 @@ import {
     ref,
     uploadBytesResumable,
   } from 'firebase/storage';
-import {CircularProgessBar} from 'react-circular-progressbar'
-import 'react-circular-progressbar/dist/styles.css'
+  import { CircularProgressbar } from 'react-circular-progressbar';
+  import 'react-circular-progressbar/dist/styles.css'
 export default function DashProfile() {
   const { currentUser } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
@@ -69,7 +69,7 @@ export default function DashProfile() {
         <input type="file" accept="image/*" onChange={handleImageChange} ref={filePickerRef} hidden />
         <div className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full" onClick={()=> filePickerRef.current.click()}>
           {imageFileUploadingProgess && (
-            <CircularProgessBar value = {imageFileUploadingProgess || 0} text={`${imageFileUploadingProgess}%`}
+            <CircularProgressbar value = {imageFileUploadingProgess || 0} text={`${imageFileUploadingProgess}%`}
             strokeWidth={5}
             styles={{
                 root: {

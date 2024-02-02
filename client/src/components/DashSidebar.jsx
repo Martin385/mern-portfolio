@@ -32,7 +32,7 @@ export default function DashSidebar() {
         <Sidebar.ItemGroup>
           <Sidebar.Item
             className="cursor-pointer"
-            active
+            
             icon={HiArrowSmRight}
             label={""}
             labelColor="dark"
