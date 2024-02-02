@@ -13,7 +13,7 @@ export const signup = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
-    next(errorHandler(400, "Todos los campos son requeridos"));
+    next(errorHandler(400, "All fields are required"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -31,28 +31,24 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
-
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password || email === "" || password === "") {
-    next(errorHandler(400, "Todos los campos son requeridos"));
+    next(errorHandler(400, "All fields are required"));
   }
 
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) {
-      return next(errorHandler(404, "Usuario no encontrado"));
+      return next(errorHandler(404, "User not found"));
     }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
-      return next(errorHandler(400, "Password Invalida"));
+      return next(errorHandler(400, "Invalid password"));
     }
-
     const token = jwt.sign(
-      {
-        id: validUser._id,
-      },
+      { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECRET
     );
 
@@ -68,13 +64,15 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
-
 export const google = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.body;
   try {
     const user = await User.findOne({ email });
     if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: user._id, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET
+      );
       const { password, ...rest } = user._doc;
       res
         .status(200)
@@ -91,12 +89,15 @@ export const google = async (req, res, next) => {
         username:
           name.toLowerCase().split(" ").join("") +
           Math.random().toString(9).slice(-4),
-        password: hashedPassword,
         email,
+        password: hashedPassword,
         profilePicture: googlePhotoUrl,
       });
       await newUser.save();
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECRET
+      );
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
