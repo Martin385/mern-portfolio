@@ -2,7 +2,7 @@ import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { app } from "../firebase";
-
+import {Link} from 'react-router-dom'
 import {
   getDownloadURL,
   getStorage,
@@ -22,7 +22,7 @@ import {
 } from "../redux/user/userSlice";
 import { HiOutlineExclamationCircle} from 'react-icons/hi'
 export default function DashProfile() {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadingProgess, setImageFileUploadingProgess] =
@@ -229,13 +229,22 @@ export default function DashProfile() {
           onChange={handleChange}
         />
         <Button
-          disabled={imageFileUploading}
+          disabled={imageFileUploading || loading}
           type="submit"
           gradientDuoTone="purpleToBlue"
           outline
         >
-          Actualizar
+          {loading ? 'Cargando...' : 'Actualizar'}
         </Button>
+        {
+          currentUser.isAdmin && (
+           <Link to={'/create-post'}>
+            <Button type ='button' gradientDuoTone='purpleToPink' className="w-full">
+              Crear una publicacion
+            </Button>
+           </Link>
+          )
+        }
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className="pointer">Eliminar cuenta</span>
