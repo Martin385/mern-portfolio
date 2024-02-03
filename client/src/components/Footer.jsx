@@ -13,9 +13,9 @@ export default function FooterComponent() {
               className="self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white"
             >
               <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-                Mastros
+                Port
               </span>
-              Blog
+              Flix
             </Link>
           </div>
           <div className="grid gris-cols-2 gap-8  mt-4 sm:grid-cols-3 sm:gap-6">
@@ -34,7 +34,7 @@ export default function FooterComponent() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Mastros blog
+                Port flix
               </Footer.Link>
             </Footer.LinkGroup>
                 </div>
@@ -76,7 +76,7 @@ export default function FooterComponent() {
         </div>
         <Footer.Divider/>
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <Footer.Copyright href="#" by="Mastro's Blog" year={new Date().getFullYear()}/>
+            <Footer.Copyright href="#" by="Martin Mastropietro" year={new Date().getFullYear()}/>
 
             <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
                 <Footer.Icon href="#" icon={BsFacebook}/>
