@@ -4,7 +4,7 @@ import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
-const Comment = ({ comment, onLike, onEdit }) => {
+const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState({});
   const[editedContent, setEditedContent] = useState(comment.content)
   const { currentUser } = useSelector((state) => state.user);
@@ -29,6 +29,8 @@ const Comment = ({ comment, onLike, onEdit }) => {
     setEditedContent(comment.content)
 
   };
+
+   
 
   const handleSave = async () => {
     try {
@@ -106,8 +108,9 @@ const Comment = ({ comment, onLike, onEdit }) => {
                     "" +
                     (comment.numberOfLikes === 1 ? " like" : " likes")}
               </p>
-              {(currentUser && currentUser._id === comment.userId) ||
-                (currentUser.isAdmin && (
+              {(currentUser && currentUser._id === comment.userId ||
+                currentUser.isAdmin) && (
+                  <>
                   <button
                     type="button"
                     onClick={handleEdit}
@@ -115,7 +118,16 @@ const Comment = ({ comment, onLike, onEdit }) => {
                   >
                     Editar
                   </button>
-                ))}
+                   <button
+                   type="button"
+                   onClick={()=>onDelete(comment._id)}
+                   className="text-gray-400 hover:text-red-500"
+                 >
+                   Eliminar
+                 </button>
+                 </>
+                )}
+                
             </div>
           </>
         )}
