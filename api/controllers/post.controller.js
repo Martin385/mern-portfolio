@@ -29,7 +29,6 @@ export const create = async (req, res, next) => {
     next(error);
   }
 };
-
 export const getposts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
@@ -41,16 +40,9 @@ export const getposts = async (req, res, next) => {
       ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.postId && { _id: req.query.postId }),
       ...(req.query.searchTerm && {
-        Sor: [
-          {
-            title: { $regex: req.query.searchTerm, $options: "i" },
-          },
-          {
-            content: {
-              $regex: req.query.searchTerm,
-              $options: "i",
-            },
-          },
+        $or: [
+          { title: { $regex: req.query.searchTerm, $options: "i" } },
+          { content: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
     })
@@ -81,8 +73,7 @@ export const getposts = async (req, res, next) => {
     next(error);
   }
 };
-
-export const deletpost = async (req, res, next) => {
+export const deletepost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(
       errorHandler(403, "No tienes el permiso para borrar este post")
