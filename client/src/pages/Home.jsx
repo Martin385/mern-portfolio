@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div>
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
-        <h1 className='text-3xl font-bold lg:text-6xl'>Bienvenidos a mi portfolio</h1>
+        <h1 className='text-3xl font-bold lg:text-6xl'>Bienvenidos a mi portafolio</h1>
         <p className='text-gray-500 text-xs sm:text-sm'>Mi nombre es Martin Mastropietro, desarrollador fullstack y estudiante de Ingenieria Informatica y les presento mi portfolio hecho enteramente en MERN</p>
         <Link to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>Ver todos los posts</Link>
       </div>

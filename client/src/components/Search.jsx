@@ -138,7 +138,7 @@ export default function Search() {
                 {!loading && posts && posts.map((post) => (
                     <PostCard key={post._id} post={post}></PostCard>
                 ))}
-                {showMore && <button onClick={handleShowMore} className='text-teal-500 text-lg hover:underline p-7 w-full'>Ver mas</button>}
+                {showMore && <button onClick={handleShowMore} className='text-teal-500 text-lg hover:underline p-7 w-full'>Ver más</button>}
             </div>
         </div>
     </div>
