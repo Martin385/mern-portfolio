@@ -8,7 +8,7 @@ export default function CallToAction() {
             <h2 className='text-2xl'>¿Queres saber más de Martin Mastropietro?</h2>
             <p className='text-gray-500 my-2'>Encontrá más en Linkedin</p>
             <Button gradientDuoTone='purpleToPink' className='rounded-tl-xl rounded-bl-none'>
-                <a href="https://wwww.youtube.com" target='_blank' rel='noopener noreferrer'>  Ver más</a>
+                <a href="https://www.linkedin.com/in/martin-mastropietro/" target='_blank' rel='noopener noreferrer'>  Ver más</a>
               
             </Button>
         </div>

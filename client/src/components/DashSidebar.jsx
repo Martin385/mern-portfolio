@@ -64,7 +64,7 @@ export default function DashSidebar() {
             icon={HiDocumentText}
             as='div'
             >
-              Publicaciones
+              Tus publicaciones
             </Sidebar.Item>
           </Link>
 

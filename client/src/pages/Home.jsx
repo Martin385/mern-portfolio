@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/post/getPosts')
+      const res = await fetch('/api/post/getposts?limit=4')
       const data = await res.json()
       setPosts(data.posts)
     }
@@ -20,7 +20,7 @@ export default function Home() {
         <p className='text-gray-500 text-xs sm:text-sm'>Mi nombre es Martin Mastropietro, desarrollador fullstack y estudiante de Ingenieria Informatica y les presento mi portfolio hecho enteramente en MERN</p>
         <Link to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>Ver todos los posts</Link>
       </div>
-      <div className='p-3 bg-amber-100 dark:bg-slate-700'>
+      <div className='mx-auto w-11/12 align-center p-3 bg-amber-100 dark:bg-slate-700'>
         <CallToAction></CallToAction>
       </div>
 
@@ -29,7 +29,7 @@ export default function Home() {
           posts && posts.length > 0 && (
             <div className='gap-6 flex flex-col'>
               <h2 className='text-2xl font-semibold text-center'>Posts recientes</h2>
-              <div className='flex flex-wrap gap-4'> {posts.map((post) => (
+              <div className='flex flex-wrap justify-center gap-4'> {posts.map((post) => (
                 <PostCard key={post._id} post={post}></PostCard>
               ))}</div>
               <Link to={'/search'} className='text-lg text-teal-500 hover:underline text-center'>Ver todos los posts</Link>

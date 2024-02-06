@@ -22,13 +22,7 @@ export default function FooterComponent() {
                 <div>
                 <Footer.Title title="Acerca de" />
             <Footer.LinkGroup col>
-              <Footer.Link
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                100 JS Projects
-              </Footer.Link>
+              
               <Footer.Link
                 href="/about"
                 target="_blank"
@@ -49,7 +43,7 @@ export default function FooterComponent() {
                 Github
               </Footer.Link>
               <Footer.Link
-                href="/about"
+                href="https://www.linkedin.com/in/martin-mastropietro/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -79,12 +73,8 @@ export default function FooterComponent() {
             <Footer.Copyright href="#" by="Martin Mastropietro" year={new Date().getFullYear()}/>
 
             <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-                <Footer.Icon href="#" icon={BsFacebook}/>
-                <Footer.Icon href="#" icon={BsTwitter}/>
-                <Footer.Icon href="#" icon={BsInstagram}/>
-                <Footer.Icon href="#" icon={BsYoutube}/>
-                <Footer.Icon href="#" icon={BsLinkedin}/>
-                <Footer.Icon href="#" icon={BsGithub}/>
+                <Footer.Icon href="https://www.linkedin.com/in/martin-mastropietro/" icon={BsLinkedin}/>
+                <Footer.Icon href="https://www.github.com/Martin385" icon={BsGithub}/>
             </div>
         </div>
       </div>

@@ -63,7 +63,7 @@ export default function Search() {
           setSidebarData({ ...sidebarData, sort: order });
         }
         if (e.target.id === 'category') {
-          const category = e.target.value || 'uncategorized';
+          const category = e.target.value === 'any' ? '' : e.target.value;
           setSidebarData({ ...sidebarData, category });
         }
       };
@@ -73,7 +73,9 @@ export default function Search() {
         const urlParams = new URLSearchParams(location.search);
         urlParams.set('searchTerm', sidebarData.searchTerm);
         urlParams.set('sort', sidebarData.sort);
-        urlParams.set('category', sidebarData.category);
+        if (sidebarData.category !== 'any') {
+          urlParams.set('category', sidebarData.category);
+        }
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
       };
@@ -109,8 +111,8 @@ export default function Search() {
                 <div className='flex items-center gap-2'>
                     <label className='font-semibold'>Filtrar:</label>
                     <Select onChange={handleChange} value={sidebarData.sort} id='sort'>
-              <option value='desc'>Latest</option>
-              <option value='asc'>Oldest</option>
+              <option value='desc'>Más recientes</option>
+              <option value='asc'>Más antiguos</option>
             </Select>
                 </div>
                 <div className='flex items-center gap-2'>
@@ -120,6 +122,7 @@ export default function Search() {
                         <option value='terror'>Terror</option>
                         <option value='comedy'>Comedia</option>
                         <option value='drama'>Drama</option>
+                        <option value='any'>Cualquiera</option>
                     </Select>
                 </div>
                 <Button type='submit' outline gradientDuoTone='purpleToPink'>

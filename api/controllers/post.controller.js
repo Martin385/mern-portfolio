@@ -33,7 +33,7 @@ export const getposts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.order === "asc" ? 1 : -1;
+    const sortDirection = req.query.sort === "asc" ? 1 : -1; // Changed 'order' to 'sort'
     const posts = await Post.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
@@ -46,14 +46,13 @@ export const getposts = async (req, res, next) => {
         ],
       }),
     })
-      .sort({ updatedAt: sortDirection })
+      .sort({ createdAt: sortDirection }) // Changed to sort by createdAt
       .skip(startIndex)
       .limit(limit);
 
     const totalPosts = await Post.countDocuments();
 
     const now = new Date();
-
     const oneMonthAgo = new Date(
       now.getFullYear(),
       now.getMonth() - 1,

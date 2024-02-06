@@ -70,7 +70,7 @@ export default function PostPage() {
       <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
         <span className='italic'>
-          {post && (post.content.length / 1000).toFixed(0)} mins leidos
+          Lectura de {post && (post.content.length / 1000).toFixed(0)} minutos 
         </span>
       </div>
       <div
