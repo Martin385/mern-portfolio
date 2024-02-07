@@ -4,6 +4,7 @@ import { useParams,  Link} from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
+import CreditsComp from "../components/CreditsComp";
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,27 @@ export default function PostPage() {
     };
     fetchPost();
   }, [postSlug]);
+
+ 
+  const handleLike = async (postId) => {
+    try {
+    
+      const res = await fetch(`/api/post/likePost/${postId}`, {
+        method: "PUT",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setPost({ ...post,
+          likes: data.likes,
+          numberOfLikes: data.likes.length,}
+       
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 
   useEffect(() => {
     try {
@@ -74,10 +96,13 @@ export default function PostPage() {
         </span>
       </div>
       <div
-        className='p-3 max-w-2xl mx-auto w-full post-content'
+        className='p-3 max-w-2xl mx-auto w-full post-content border-b border-slate-500'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       >
         
+      </div>
+      <div className='flex justify-between p-1 mx-auto w-full max-w-2xl text-xs'>
+       <CreditsComp post={post}  onLike={handleLike}/>
       </div>
       <div className="max-w-4xl mx-auto w-full">
         <CallToAction/>
