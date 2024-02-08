@@ -5,6 +5,7 @@ import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
 import CreditsComp from "../components/CreditsComp";
+import { Rating } from 'flowbite-react';
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ export default function PostPage() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
+        const res = await fetch(`/api/post/getposts?limit=2`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);
@@ -82,12 +83,20 @@ export default function PostPage() {
     <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl ">{post && post.title}</h1>
     <Link to={`/search?category=${post && post.category}`} className="self-center mt-5">
     <Button color='gray' pill size='xs'>{post && post.category}</Button>
-
+   
+ 
     </Link>
+    <Rating className=" mt-5 mx-auto ">
+      <Rating.Star filled={post.numberOfStars >=1 ? true : false}/>
+      <Rating.Star filled={post.numberOfStars >= 2 ? true : false}/>
+      <Rating.Star filled={post.numberOfStars >= 3 ? true : false}/>
+      <Rating.Star filled={post.numberOfStars >=4 ? true : false}/>
+      <Rating.Star filled={post.numberOfStars === 5 ? true : false} />
+    </Rating>
     <img
         src={post && post.image}
         alt={post && post.title}
-        className='mt-10 p-3 max-h-[600px] w-full object-cover'
+        className='mt-5 p-3 max-h-[600px] w-full object-cover'
       />
       <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
