@@ -68,6 +68,10 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
           <span className="text-gray-500 text-xs ">
             {moment(comment.createdAt).fromNow()}
           </span>
+          {comment.createdAt !== comment.updatedAt && (
+            <span className=" text-gray-500 ml-1 text-xs italic">(editado)</span>
+          )}
+          
         </div>
         {isEditing ? (
       <div >
